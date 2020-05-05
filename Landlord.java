@@ -30,8 +30,8 @@ public class Landlord extends Customer{
 	public ArrayList<Rental> getRental() {
 		return rental;
 	}
-	public void setRental(ArrayList<Rental> rental) {
-		this.rental = rental;
+	public void setRental(Rental rental) {
+		this.rental.add(rental);
 	}
 	
 	

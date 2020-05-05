@@ -1,5 +1,6 @@
 package rmit.sef.week8;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Rental extends Property{
@@ -13,12 +14,9 @@ public class Rental extends Property{
 	private ArrayList<Application> app = new ArrayList<>();
 
 	public Rental(String pNum, String title, String address, String suburb, int capacity, String types,
-			double management_fee, Landlord owner, Applicant renter, double weekly_rental, int durations,
-			boolean status) {
+			 Landlord owner,  double weekly_rental, int durations, boolean status) {
 		super(pNum, title, address, suburb, capacity, types);
-		this.management_fee = management_fee;
 		this.owner = owner;
-		this.renter = renter;
 		this.weekly_rental = weekly_rental;
 		this.durations = durations;
 		this.status = status;
@@ -28,6 +26,9 @@ public class Rental extends Property{
 	}
 	public void setOwner(Landlord owner) {
 		this.owner = owner;
+	}
+	public void setRenter(Applicant renter) {
+		this.renter = renter;
 	}
 	public double getManagement_fee() {
 		return management_fee;
@@ -51,32 +52,42 @@ public class Rental extends Property{
 	public ArrayList<Application> getApp() {
 		return app;
 	}
-	public void setManageFee() {
+	public static double mul(double d1,double d2,double d3){ 
+        BigDecimal bd1 = new BigDecimal(Double.toString(d1)); 
+        BigDecimal bd2 = new BigDecimal(Double.toString(d2)); 
+        BigDecimal bd3 = new BigDecimal(Double.toString(d3)); 
+        return bd1.multiply(bd2).multiply(bd3).doubleValue(); 
+    } 
+
+	public double setManageFee() {
 		if(owner.getRental().size() >= 2) {
-			management_fee = durations * weekly_rental * 0.07;
+			management_fee = mul(durations, weekly_rental,0.07);
 		}
 		else {
-		management_fee = durations * weekly_rental * 0.08;
+		management_fee = mul(durations, weekly_rental,0.08);
 		}
+		return management_fee;
 	}
-	public void setManageFee(double amount) {
+	public double setManageFee(double amount) {
 		if(owner.getRental().size() >= 2) {
 			if(amount >= 0.06) {
-			management_fee = durations * weekly_rental * amount;
+			management_fee = mul(durations, weekly_rental,amount);
 			}
 			else {
-				System.out.println("a minimum of 6% for multiple properties");
+				management_fee =-1;
 			}
 		}
 		else {
 			if(amount >= 0.07) {
-				management_fee = durations * weekly_rental * amount;
+				management_fee = mul(durations, weekly_rental,amount);
 			}
 			else {
-				System.out.println("a minimum of 7% for a single property");
+				management_fee =-1;
 			}
 		}
+		return management_fee;
 	}
+	
 	
 		
 }
