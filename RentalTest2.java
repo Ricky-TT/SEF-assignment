@@ -36,7 +36,7 @@ public class RentalTest2 {
 	@Test
 	public void Negative() throws Exception{
 
-		assertEquals(576, rental2.setManageFee(0.06));
+		assertEquals(-1, rental2.setManageFee(0.05));
 		assertEquals(-1, rental3.setManageFee(0.06));
 		
 	}
